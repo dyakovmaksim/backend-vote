@@ -1,6 +1,8 @@
-// ...импорты и настройки
+const path = require("path");
 const http = require("http");
-const staticFile = require("./appModules/http-utils/static-file");
+const { mainRouteController, gameRouteController, defaultRouteController, voteRouteController } = require("./controllers");
+
+const PORT = 3005;
 
 const server = http.createServer((req, res) => {
     const url = req.url;
@@ -11,7 +13,12 @@ const server = http.createServer((req, res) => {
         case "/game":
             gameRouteController(res);
             break;
+        case "/vote":
+            voteRouteController(req, res);
+            break;
         default:
             defaultRouteController(res, url);
     }
 });
+
+server.listen(PORT);
